@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotellSystem.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -41,6 +42,18 @@ namespace HotellSystem.Controllers
             }
             return Ok(customer);
         }
+
+        [HttpPut("Update/{code}")]
+        public async Task<ActionResult<Customer>> UpdateCustomer(int id)
+        {
+            //if()
+            //find
+            var customer = await _context.Customers.FindAsync(id);
+            return Ok();
+        }
+
+
+
 
 
     }

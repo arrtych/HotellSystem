@@ -22,5 +22,13 @@ namespace HotellSystem.Models
         [Required]
         [MaxLength(100)]
         public string Email { get; set; }
+
+        public double Budget { get; set; } = 0;
+
+        public List<Reservation> reservations = new List<Reservation>();
+
+
+
+
     }
 }

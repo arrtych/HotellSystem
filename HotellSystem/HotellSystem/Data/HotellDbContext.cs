@@ -5,26 +5,21 @@ namespace HotellSystem.Data
 {
     public class HotellDbContext: DbContext
     {
-        //protected readonly IConfiguration Configuration;
-
-        //public HotellDbContext(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
         public HotellDbContext(DbContextOptions<HotellDbContext> options): base(options)
         {
 
         }
 
-
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet<Reservation> Reservations { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //{
-        //    // connect to sqlite database
-        //    options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-        //}
+
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<Hotell> Hotells { get; set; }
+
+
 
 
     }
