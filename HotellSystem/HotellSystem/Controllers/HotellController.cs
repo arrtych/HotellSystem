@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HotellSystem.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotellSystem.Controllers
@@ -12,5 +13,10 @@ namespace HotellSystem.Controllers
         // create users
         // create rooms
         // 
+        private readonly HotellDbContext _db;
+        public HotellController(HotellDbContext db)
+        {
+            _db = db;
+        }
     }
 }

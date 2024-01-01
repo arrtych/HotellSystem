@@ -10,32 +10,32 @@ namespace HotellSystem.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly HotellDbContext _context;
-        public CustomerController(HotellDbContext context)
+        private readonly HotellDbContext _db;
+        public CustomerController(HotellDbContext db)
         {
-            _context = context;
+            _db = db;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Customer>>> GetCustomers()
         {
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _db.Customers.ToListAsync());
         }
 
 
         [HttpPost]
         public async Task<ActionResult<List<Customer>>> AddCustomer(Customer customer)
         {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+            _db.Customers.Add(customer);
+            await _db.SaveChangesAsync();
 
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _db.Customers.ToListAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _db.Customers.FindAsync(id);
             if (customer == null)
             {
                 return BadRequest("Customer not found");
@@ -48,8 +48,9 @@ namespace HotellSystem.Controllers
         {
             //if()
             //find
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _db.Customers.FindAsync(id);
             return Ok();
+
         }
 
 
