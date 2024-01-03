@@ -1,5 +1,6 @@
 ﻿using HotellSystem.Data;
 using HotellSystem.Models;
+using HotellSystem.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,19 @@ namespace HotellSystem.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly HotellDbContext _db;
+        private HotellService service;
+
         public ReservationController(HotellDbContext db)
         {
             _db = db;
+            this.service = new HotellService();
         }
+
+        //public class DateTimeModel
+        //{
+        //    public DateTime StartDate { get; set; }
+        //    public DateTime EndDate { get; set; }
+        //}
 
 
         [HttpGet]
@@ -32,6 +42,35 @@ namespace HotellSystem.Controllers
             await _db.SaveChangesAsync();
 
             return Ok(await _db.Reservations.ToListAsync());
+        }
+
+
+
+
+        [HttpPost("create")]
+        //public async Task<ActionResult<List<Reservation>>> CreateReservation([FromBody] DateTime start, DateTime end, int roomId)
+        public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestModel requestModel)
+        {
+            Reservation reservation= new Reservation();
+            //var room = await _db.Rooms.FindAsync(model.RoomId);
+            Room room = service.rooms.FirstOrDefault(r => r.Id == requestModel.RoomId);
+            Customer customer = service.customers.FirstOrDefault(c => c.CustomerId== requestModel.CustomerId);
+            //var room = service.rooms.Find(roomId);
+            if (room != null && customer != null)
+            {
+                room.isFree = false;
+                reservation.StartDate = requestModel.StartDate;
+                reservation.EndDate = requestModel.EndDate;
+                reservation.Rooms = new List<Room>() { room };
+                _db.Reservations.Add(reservation);
+                await _db.SaveChangesAsync();
+                //return Ok(await _db.Reservations.ToListAsync());
+                return Ok(new { Message = "create successful" });
+            } else
+            {
+                return BadRequest("Room not found");
+            }
+          
         }
 
 
@@ -63,6 +102,7 @@ namespace HotellSystem.Controllers
             }
             return Ok(reservations);
         }
+
 
 
 
