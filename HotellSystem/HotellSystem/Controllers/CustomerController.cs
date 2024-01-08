@@ -10,8 +10,8 @@ namespace HotellSystem.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly HotellDbContext _db;
-        public CustomerController(HotellDbContext db)
+        private readonly HotelDbContext _db;
+        public CustomerController(HotelDbContext db)
         {
             _db = db;
         }

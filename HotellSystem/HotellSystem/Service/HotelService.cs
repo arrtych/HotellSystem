@@ -3,28 +3,28 @@ using System.Xml.Linq;
 
 namespace HotellSystem.Service
 {
-    public class HotellService
+    public class HotelService
     {
-        public Hotell hotell { get; set; }
+        public Hotel hotell { get; set; }
         public List<Room> rooms { get; set; }
 
         public List<Customer> customers { get; set; }
 
-        public HotellService() { 
+        public HotelService() { 
             this.InitHotellSystem();
         }
 
         public void InitHotellSystem()
         {
-            this.hotell = this.InitHotell(1,"Hotell Express");
+            this.hotell = this.InitHotell(0,"Hotell Express");
             this.rooms = this.InitRooms();
             this.customers = this.InitCustomers();
         }
 
 
-        public Hotell InitHotell(int id, string name)
+        public Hotel InitHotell(int id, string name)
         {
-            Hotell hotell= new Hotell(id, name );
+            Hotel hotell= new Hotel(id, name );
             return hotell;
         }
 
@@ -38,6 +38,7 @@ namespace HotellSystem.Service
             room1.Number = 101;
             room1.BedsAmount = 1;
             room1.Price = 200;
+            room1.HotelId = 1;
             list.Add(room1);
 
             Room room2 = new Room();
@@ -45,15 +46,17 @@ namespace HotellSystem.Service
             room2.isFree = true;
             room2.Number = 201;
             room2.BedsAmount = 2;
-            room1.Price = 280;
+            room2.Price = 280;
+            room2.HotelId = 1;
             list.Add(room2);
 
             Room room3 = new Room();
-            room3.Id = 2;
+            room3.Id = 3;
             room3.isFree = true;
             room3.Number = 301;
             room3.BedsAmount = 3;
             room3.Price = 400;
+            room3.HotelId = 1;
             list.Add(room3);
 
             return list;

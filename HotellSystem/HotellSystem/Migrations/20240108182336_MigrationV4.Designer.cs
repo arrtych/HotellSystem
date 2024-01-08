@@ -3,6 +3,7 @@ using System;
 using HotellSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotellSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotellDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108182336_MigrationV4")]
+    partial class MigrationV4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -62,7 +65,7 @@ namespace HotellSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotells");
                 });
 
             modelBuilder.Entity("HotellSystem.Models.Reservation", b =>

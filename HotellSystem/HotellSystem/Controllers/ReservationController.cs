@@ -12,13 +12,13 @@ namespace HotellSystem.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private readonly HotellDbContext _db;
-        private HotellService service;
+        private readonly HotelDbContext _db;
+        private HotelService service;
 
-        public ReservationController(HotellDbContext db)
+        public ReservationController(HotelDbContext db)
         {
             _db = db;
-            this.service = new HotellService();
+            this.service = new HotelService();
         }
 
         //public class DateTimeModel
@@ -56,17 +56,24 @@ namespace HotellSystem.Controllers
             Room room = service.rooms.FirstOrDefault(r => r.Id == requestModel.RoomId);
             Customer customer = service.customers.FirstOrDefault(c => c.CustomerId== requestModel.CustomerId);
             //var room = service.rooms.Find(roomId);
-            if (room != null && customer != null)
+            ///if (room != null
+            //if (room != null && customer != null) 
+
+            if (room != null && customer!= null && room.IsSuitable(customer, requestModel)) 
             {
                 room.isFree = false;
                 reservation.StartDate = requestModel.StartDate;
                 reservation.EndDate = requestModel.EndDate;
                 reservation.Rooms = new List<Room>() { room };
+                //generate reservation id from db, add reservation id to room.
+                customer.Budget -= room.Price;
+                reservation.Customer = customer;
                 _db.Reservations.Add(reservation);
                 await _db.SaveChangesAsync();
                 //return Ok(await _db.Reservations.ToListAsync());
                 return Ok(new { Message = "create successful" });
             } else
+
             {
                 return BadRequest("Room not found");
             }

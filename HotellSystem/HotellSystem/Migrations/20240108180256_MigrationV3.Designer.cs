@@ -3,6 +3,7 @@ using System;
 using HotellSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotellSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotellDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108180256_MigrationV3")]
+    partial class MigrationV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -50,7 +53,7 @@ namespace HotellSystem.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("HotellSystem.Models.Hotel", b =>
+            modelBuilder.Entity("HotellSystem.Models.Hotell", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +65,7 @@ namespace HotellSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotells");
                 });
 
             modelBuilder.Entity("HotellSystem.Models.Reservation", b =>
@@ -77,7 +80,7 @@ namespace HotellSystem.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("HotelId")
+                    b.Property<int?>("HotellId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartDate")
@@ -87,7 +90,7 @@ namespace HotellSystem.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("HotelId");
+                    b.HasIndex("HotellId");
 
                     b.ToTable("Reservations");
                 });
@@ -101,7 +104,7 @@ namespace HotellSystem.Migrations
                     b.Property<int>("BedsAmount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("HotelId")
+                    b.Property<int?>("HotellId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Number")
@@ -118,7 +121,7 @@ namespace HotellSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HotelId");
+                    b.HasIndex("HotellId");
 
                     b.HasIndex("ReservationId");
 
@@ -131,25 +134,25 @@ namespace HotellSystem.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("HotellSystem.Models.Hotel", null)
+                    b.HasOne("HotellSystem.Models.Hotell", null)
                         .WithMany("Reservations")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotellId");
 
                     b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("HotellSystem.Models.Room", b =>
                 {
-                    b.HasOne("HotellSystem.Models.Hotel", null)
+                    b.HasOne("HotellSystem.Models.Hotell", null)
                         .WithMany("Rooms")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotellId");
 
                     b.HasOne("HotellSystem.Models.Reservation", null)
                         .WithMany("Rooms")
                         .HasForeignKey("ReservationId");
                 });
 
-            modelBuilder.Entity("HotellSystem.Models.Hotel", b =>
+            modelBuilder.Entity("HotellSystem.Models.Hotell", b =>
                 {
                     b.Navigation("Reservations");
 

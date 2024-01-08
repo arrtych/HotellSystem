@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotellSystem.Migrations
 {
-    [DbContext(typeof(HotellDbContext))]
+    [DbContext(typeof(HotelDbContext))]
     [Migration("20231220160621_anotherTables")]
     partial class anotherTables
     {

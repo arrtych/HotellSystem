@@ -1,6 +1,6 @@
 ﻿namespace HotellSystem.Models
 {
-    public class Hotell
+    public class Hotel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@
         public List<Room> Rooms { get; set; } = new List<Room>();
 
 
-        public Hotell (int id, string name) { 
+        public Hotel (int id, string name) { 
             this.Id= id;
             this.Name= name;
         }
